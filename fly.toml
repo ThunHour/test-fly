@@ -11,6 +11,9 @@ processes = []
 [env]
   DATABASE_URL = "postgres://postgres:MM1dbekiIXFr8Yf@appe-with-db-db.internal:5432"
   PORT = "8080"
+  JWT_ACCESS_SECRET="ecommers_secret_168"
+  JWT_REFRESH_SECRET="ecommerse_secret_168"
+  SUPER_ADMIN_EMAIL="ecommers@dev.com"
 
 [experimental]
   allowed_public_ports = []
