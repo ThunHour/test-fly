@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response, Router } from 'express';
 const router: Router = express.Router();
 import { isAuth } from '../middlewares/auth';
 
-router.get('/kimhour', isAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/hour', isAuth, async (req: Request, res: Response, next: NextFunction) => {
     try {
         // checking role:
         const payload = req.payload;
