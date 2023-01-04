@@ -4,7 +4,7 @@ on:
     branches:
       - main
 env:
-  FLY_API_TOKEN: ${{ "tMXDi7bqVYKd1cbm-k0BOCZ4sw9h1w3XKpehqopiudE" }}
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
   deploy:
       name: appe-with-db
