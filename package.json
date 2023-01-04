@@ -5,7 +5,7 @@
   "scripts": {
     "start": "tsnd --respawn index.ts dev",
     "build": "tsc",
-    "db:sync": "prisma migrate dev && yarn prisma generate && prisma db push",
+    "db:sync": "prisma migrate deploy && yarn prisma generate && prisma db push",
     "db:format": "prisma format",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
