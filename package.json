@@ -10,7 +10,6 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "db:reset": "prisma migrate reset",
-    
     "docs-gen": "tsoa spec",
     "lint": "eslint **/*.ts",
     "format": "eslint **/*.ts --fix"
