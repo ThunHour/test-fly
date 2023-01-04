@@ -1,0 +1,67 @@
+{
+  "name": "e-commers-api",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsnd --respawn index.ts dev",
+    "build": "tsc",
+    "db:sync": "prisma migrate dev && yarn prisma generate && prisma db push",
+    "db:format": "prisma format",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "db:reset": "prisma migrate reset",
+    "docs-gen": "tsoa spec",
+    "lint": "eslint **/*.ts",
+    "format": "eslint **/*.ts --fix"
+  },
+  "engines": {
+    "node": "16.18.0"
+  },
+  "prisma": {
+    "seed": "tsnd prisma/seed.ts"
+  },
+  "author": {
+    "name": "seanghor",
+    "email": "hai.seanghor009@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.15",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.1",
+    "prisma": "^4.8.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsc-watch": "^6.0.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.8.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "swagger-ui-express": "^4.6.0",
+    "uuid": "^9.0.0",
+    "@types/express": "^4.17.15",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.1",
+    "prisma": "^4.8.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsc-watch": "^6.0.0",
+    "typescript": "^4.9.4"
+  }
+}

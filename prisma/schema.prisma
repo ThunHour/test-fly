@@ -1,0 +1,165 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleEnumType {
+  superAdmin
+  admin
+  customer
+}
+
+enum PaymentEnumType {
+  ABA
+  ACLEDA
+  WING
+}
+
+enum CategoryEnumType {
+  post
+  microwave
+  toaster
+  dishwasher
+  cookware
+  Teapot
+  Knife
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  username     String
+  email        String         @unique
+  password     String
+  phone        String         @unique
+  Role         RoleEnumType   @default(customer)
+  RefreshToken RefreshToken[]
+  Admin        Admin[]
+  Customer     Customer[]
+}
+
+model Customer {
+  id        Int         @id @default(autoincrement())
+  username  String
+  password  String
+  userId    Int
+  User      User        @relation(fields: [userId], references: [id])
+  Address   Address[]
+  Cart_item Cart_item[]
+}
+
+model SuperAdmin {
+  id          Int       @id @default(autoincrement())
+  username    String    @unique
+  email       String    @unique
+  phone       String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+}
+
+model Admin {
+  id               Int                @id @default(autoincrement())
+  username         String
+  password         String
+  userId           Int
+  User             User               @relation(fields: [userId], references: [id])
+  Product          Product[]
+  ProductCategory  ProductCategory[]
+  ProductInventory ProductInventory[]
+  Discount         Discount[]
+}
+
+model RefreshToken {
+  id          String   @id @unique @default(uuid())
+  hashedToken String
+  userId      Int
+  User        User     @relation(fields: [userId], references: [id])
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Address {
+  id          Int      @id @default(autoincrement())
+  customerId  Int
+  Customer    Customer @relation(fields: [customerId], references: [id])
+  companyName String
+  street      Int
+  zipecode    Int
+  city        String
+  province    String
+  country     String
+}
+
+model Product {
+  id               Int              @id @default(autoincrement())
+  name             String
+  description      String?
+  categogry_id     Int
+  ProductCategory  ProductCategory  @relation(fields: [categogry_id], references: [id])
+  inventory_id     Int
+  ProductInventory ProductInventory @relation(fields: [inventory_id], references: [id])
+  price            Int
+  discount_id      Int
+  Discount         Discount         @relation(fields: [discount_id], references: [id])
+  createByAdminId  Int
+  Admin            Admin            @relation(fields: [createByAdminId], references: [id])
+  create_at        DateTime         @default(now())
+  modified_at      DateTime         @updatedAt
+  delete_at        DateTime         @default(now())
+  Cart_item        Cart_item[]
+}
+
+model ProductCategory {
+  id              Int              @id @default(autoincrement())
+  name            CategoryEnumType @unique @default(cookware)
+  description     String?
+  createByAdminId Int
+  Admin           Admin            @relation(fields: [createByAdminId], references: [id])
+  create_at       DateTime         @default(now())
+  modified_at     DateTime         @updatedAt
+  delete_at       DateTime         @default(now())
+  Product         Product[]
+}
+
+model ProductInventory {
+  id              Int       @id @default(autoincrement())
+  quantity        Int
+  createByAdminId Int
+  Admin           Admin     @relation(fields: [createByAdminId], references: [id])
+  create_at       DateTime  @default(now())
+  modified_at     DateTime  @updatedAt
+  delete_at       DateTime  @default(now())
+  Product         Product[]
+}
+
+model Discount {
+  id               Int       @id @default(autoincrement())
+  name             String
+  description      String
+  discount_percent Decimal
+  active           Boolean   @default(false)
+  createByAdminId  Int
+  Admin            Admin     @relation(fields: [createByAdminId], references: [id])
+  create_at        DateTime  @default(now())
+  modified_at      DateTime  @updatedAt
+  delete_at        DateTime  @default(now())
+  Product          Product[]
+}
+
+model Cart_item {
+  id         Int      @id @default(autoincrement())
+  customerId Int
+  Customer   Customer @relation(fields: [customerId], references: [id])
+  product_id Int
+  Product    Product  @relation(fields: [product_id], references: [id])
+  quantity   Int
+}
